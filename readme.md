@@ -30,7 +30,7 @@ cd day-of-week
 
 3. Open in your browser:
 ```bash
-open index.html  # Or double-click the file
+open index.html  
 ```
 
 ## Usage 
@@ -95,4 +95,4 @@ Contributions are welcome! Please follow these steps:
 - Quotes curated from various motivational sources
 
 ---
-***Every day with you is special for me 🥹🎀***
+**Every day with you is special for me 🥹🎀**
