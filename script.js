@@ -1,55 +1,87 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const weekdayElement = document.getElementById('weekday');
+    const quoteElement = document.getElementById('quote');
+    const container = document.querySelector('.container');
 
+    // Day configuration with multiple quotes
+    const days = [
+        {
+            name: "Sunday",
+            quotes: ["Time to chill 🌴", "Sunday funday! 🎉", "Relax and recharge ⛱️"]
+        },
+        {
+            name: "Monday",
+            quotes: ["New week, new opportunities 💼", "Make it happen! 💪", "Monday motivation 🚀"]
+        },
+        {
+            name: "Tuesday",
+            quotes: ["Stay productive 📈", "Keep pushing forward 🔥", "Success is near! 💡"]
+        },
+        {
+            name: "Wednesday",
+            quotes: ["Midweek hustle 💪", "Halfway there! 🚀", "Stay strong! 🏆"]
+        },
+        {
+            name: "Thursday",
+            quotes: ["Almost there! ⏳", "Keep grinding! 🎯", "Focus and win! 🏁"]
+        },
+        {
+            name: "Friday",
+            quotes: ["Weekend loading... 🎉", "Finish strong! 💼", "Friday vibes ✨"]
+        },
+        {
+            name: "Saturday",
+            quotes: ["Enjoy the weekend! 🌟", "Relax and reset 🔄", "Make today amazing! 🌍"]
+        }
+    ];
 
-let date = new Date();
+    let currentDayIndex = new Date().getDay();
+    let currentQuoteIndex = 0;
 
-let dayNumber = date.getDay();
+    // Update display with animations
+    const updateDisplay = () => {
+        const day = days[currentDayIndex];
 
-let theDayIs;
+        // Apply pop animation to the container
+        container.classList.add('animate');
+        setTimeout(() => container.classList.remove('animate'), 600);
 
-let quote;
+        // Update text content with smooth transition
+        weekdayElement.textContent = day.name;
+        quoteElement.textContent = day.quotes[currentQuoteIndex];
 
-switch(dayNumber){
+        // Reset animation to avoid stacking effects
+        quoteElement.classList.remove('quote-transition');
+        void quoteElement.offsetHeight; // Force reflow
+        quoteElement.classList.add('quote-transition');
+    };
 
-    case 0:
-        theDayIs = "Sunday";
-        quote = "Time to chill"
-        break;
+    // Click handler for cycling through quotes
+    weekdayElement.addEventListener('click', () => {
+        currentQuoteIndex = (currentQuoteIndex + 1) % days[currentDayIndex].quotes.length;
+        updateDisplay();
+    });
 
-    case 1:
-        theDayIs = "Monday";
-        quote = "Monday is a day of Work";
-        break;
+    // Check for day change every minute
+    const checkDayChange = () => {
+        const newDayIndex = new Date().getDay();
+        if (newDayIndex !== currentDayIndex) {
+            currentDayIndex = newDayIndex;
+            currentQuoteIndex = 0;
+            updateDisplay();
+        }
+    };
 
-    case 2:
-        theDayIs = "Tuesday";
-        quote = "Tuesday is a Second day of Work";
-        break;
-    
-    case 3:
-        theDayIs = "Wednesday";
-        quote = "Wednesday is a Third day of Work";
-        break;
-            
-            
-    case 4:
-        theDayIs = "Thursday";
-        quote = "Thursday is a Meeting day of Work";
-        break;
-        
-    case 5:
-        theDayIs = "Friday";
-        quote = "Weekend is almost here.....";
-        break;
-        
-    case 6:
-        theDayIs = "Saturday";
-        quote = "Time to party";
-        break;
-}
+    // Adjust font size responsively
+    const adjustFontSize = () => {
+        const baseSize = Math.min(window.innerWidth * 0.08, 80);
+        weekdayElement.style.fontSize = `${baseSize}px`;
+    };
 
+    window.addEventListener('resize', adjustFontSize);
 
-    let spanOfWeekday = document.getElementById("weekday");
-    spanOfWeekday.innerHTML =  `${theDayIs}`;
-
-    let spanOfQuote = document.getElementById("quote");
-    spanOfQuote.innerHTML = `${quote}`;
+    // Initial setup
+    updateDisplay();
+    adjustFontSize();
+    setInterval(checkDayChange, 60000); // Check every minute
+});
