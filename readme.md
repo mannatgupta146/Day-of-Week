@@ -2,7 +2,7 @@
 
 A beautiful interactive web application that displays the current day with inspirational quotes and smooth animations.
 
-![Demo Screenshot](https://via.placeholder.com/800x500.png?text=Day+Of+The+Week+Demo+Preview)
+![Demo Screenshot](image.png)
 
 ## Features 
 
@@ -55,12 +55,6 @@ const days = [
   // ... other days
 ];
 ```
-
-### Change Styles
-Modify `style.css` for different:
-- Colors (search for `/* Colors */`)
-- Animations (search for `/* Animations */`)
-- Layout dimensions (search for `/* Layout */`)
 
 ## Technologies Used 
 
